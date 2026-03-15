@@ -6,7 +6,8 @@
   "scripts": {
     "setup": "npm install && npx playwright install",
     "test": "npx playwright test",
-    "report": "npx playwright show-report"
+    "report": "npx playwright show-report",
+    "codegen": "npx playwright codegen http://localhost:9050/"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   "homepage": "https://github.com/kube-HPC/ui-automation-testing#readme",
   "devDependencies": {
     "@playwright/test": "^1.58.2",
-    "@types/node": "^25.5.0"
+    "@types/node": "^25.5.0",
+    "dotenv": "^17.3.1"
   }
 }
