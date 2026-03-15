@@ -1,2 +1,2 @@
 # ui-automation-testing
-automation testing puppeteer for ui
+automation testing Playwright for ui
