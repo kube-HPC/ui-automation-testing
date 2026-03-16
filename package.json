@@ -7,7 +7,7 @@
     "setup": "npm install && npx playwright install",
     "test": "npx playwright test",
     "report": "npx playwright show-report",
-    "codegen": "npx playwright codegen http://localhost:9050/"
+    "codegen": "npx playwright codegen --viewport-size=1920,1080 http://localhost:9050/"
   },
   "repository": {
     "type": "git",
