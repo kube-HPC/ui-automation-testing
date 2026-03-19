@@ -1,8 +1,11 @@
 import { expect, test } from "@playwright/test";
 import { createAlgorithm } from "../../../../api/algorithmApi";
+import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
 
 test("delete algorithm", async ({ page }) => {
   const algorithmName = "delete-algorithm";
+
+  // create algorithm to delete
   const algo = await createAlgorithm(algorithmName);
 
   // link to algorithms page
@@ -10,19 +13,8 @@ test("delete algorithm", async ({ page }) => {
   await page.getByTestId("left-sidebar-link-algorithms").click();
 
   // find the algorithm row by name and click delete
-  const algorithmRow = page
-    .getByTestId("hk-grid")
-    .locator('[role="row"]')
-    .filter({
-      has: page.locator('[col-id="name"]', { hasText: algorithmName }),
-    })
-    .first();
-
-  const deleteButtonInRow = algorithmRow
-    .getByTestId("algorithm-actions")
-    .locator("button")
-    .filter({ has: page.locator('[aria-label="delete"]') })
-    .first();
+  const algorithmRow = hkGridFindRowByColumnText(page, "name", algorithmName);
+  const deleteButtonInRow = algorithmRow.hkGridGetActionButton(page, "delete");
   await deleteButtonInRow.click();
 
   // confirm delete
@@ -36,13 +28,11 @@ test("delete algorithm", async ({ page }) => {
   // assert algorithm is deleted
   await page.waitForTimeout(1000); // wait for deletion to complete
 
-  const deletedAlgorithmRow = page
-    .getByTestId("hk-grid")
-    .locator('[role="row"]')
-    .filter({
-      has: page.locator('[col-id="name"]', { hasText: algorithmName }),
-    })
-    .first();
+  const deletedAlgorithmRow = hkGridFindRowByColumnText(
+    page,
+    "name",
+    algorithmName,
+  );
 
-  await expect(deletedAlgorithmRow).toBeHidden();
+  await expect(deletedAlgorithmRow.getLocator()).toBeHidden();
 });
