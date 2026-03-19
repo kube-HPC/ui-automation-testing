@@ -1,0 +1,31 @@
+{
+  "name": "ui-automation-testing",
+  "version": "1.0.0",
+  "description": "automation testing Playwright for ui tests",
+  "main": "index.js",
+  "scripts": {
+    "setup": "npm install && npx playwright install",
+    "test": "npx playwright test",
+    "report": "npx playwright show-report",
+    "codegen": "npx playwright codegen --viewport-size=1920,1080 http://localhost:9050/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kube-HPC/ui-automation-testing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kube-HPC/ui-automation-testing/issues"
+  },
+  "homepage": "https://github.com/kube-HPC/ui-automation-testing#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.5.0",
+    "dotenv": "^17.3.1"
+  },
+  "dependencies": {
+    "axios": "^1.13.6"
+  }
+}
