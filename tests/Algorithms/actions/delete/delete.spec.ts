@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { createAlgorithm } from "../../../../api/algorithmApi";
 
 test("delete algorithm", async ({ page }) => {
-  const algorithmName = "my-test-delete-algorithm";
+  const algorithmName = "delete-algorithm";
   const algo = await createAlgorithm(algorithmName);
 
   // link to algorithms page
