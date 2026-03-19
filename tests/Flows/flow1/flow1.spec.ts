@@ -8,7 +8,7 @@ test.use({
 });
 
 test("test", async ({ page }) => {
-  await page.goto("http://localhost:9050/#/jobs?&experiment=main");
+  await page.goto("/#/jobs?&experiment=main");
   await page.getByRole("link", { name: "pipelines" }).click();
   await page.getByRole("button", { name: "down" }).click();
   await page.getByTestId("NewButtonSelect-add-pipeline").click();
