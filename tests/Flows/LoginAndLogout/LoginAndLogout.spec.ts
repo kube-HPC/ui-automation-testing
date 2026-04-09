@@ -3,18 +3,26 @@ import { test, expect } from "@playwright/test";
 test("LoginAndLogout", async ({ page }) => {
   const isKeycloakEnabled =
     (process.env.VITE_KEYCLOAK_ENABLE || "").toUpperCase() === "TRUE";
+  const username = process.env.KEYCLOAK_USERNAME;
+  const password = process.env.KEYCLOAK_PASSWORD;
 
   // Open HKube login page
   await page.goto("/hkube/dashboard/#/jobs?&experiment=main");
 
   if (isKeycloakEnabled) {
+    if (!username || !password) {
+      throw new Error(
+        "Missing KEYCLOAK_USERNAME/KEYCLOAK_PASSWORD while Keycloak auth is enabled.",
+      );
+    }
+
     //  Fill username
     await page.getByPlaceholder("Username").click();
-    await page.getByPlaceholder("Username").fill("ziv");
+    await page.getByPlaceholder("Username").fill(username);
 
     //  Fill password
     await page.getByPlaceholder("Password").click();
-    await page.getByPlaceholder("Password").fill("ziv");
+    await page.getByPlaceholder("Password").fill(password);
 
     //  Click Log In
     await page.getByRole("button", { name: "Log In" }).click();
