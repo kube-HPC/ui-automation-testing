@@ -8,6 +8,15 @@ import path from "path";
  */
 dotenv.config({ path: path.resolve(__dirname, ".env") });
 
+const isKeycloakEnabled =
+  (process.env.VITE_KEYCLOAK_ENABLE || "").toLowerCase() === "true";
+const authStatePath = path.resolve(__dirname, "playwright/.auth/user.json");
+
+const chromeDesktopConfig = {
+  ...devices["Desktop Chrome"],
+  channel: "chrome",
+};
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -31,7 +40,7 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
 
-    headless: false,
+    headless: process.env.CI ? true : false,
     viewport: { width: 1920, height: 1080 },
     launchOptions: {
       slowMo: 200,
@@ -39,15 +48,35 @@ export default defineConfig({
   },
 
   /* Configure projects for major browsers */
-  projects: [
-    {
-      name: "chrome",
-      use: {
-        ...devices["Desktop Chrome"],
-        channel: "chrome",
-      },
-    },
-  ],
+  projects: isKeycloakEnabled
+    ? [
+        {
+          name: "setup",
+          testMatch: "**/*.setup.ts",
+          use: chromeDesktopConfig,
+        },
+        {
+          name: "chrome",
+          dependencies: ["setup"],
+          testIgnore: ["**/*.setup.ts", "**/LoginAndLogout.spec.ts"],
+          use: {
+            ...chromeDesktopConfig,
+            storageState: authStatePath,
+          },
+        },
+        {
+          name: "auth-flow",
+          testMatch: "**/LoginAndLogout.spec.ts",
+          use: chromeDesktopConfig,
+        },
+      ]
+    : [
+        {
+          name: "chrome",
+          testIgnore: ["**/*.setup.ts"],
+          use: chromeDesktopConfig,
+        },
+      ],
 
   /* Run your local dev server before starting the tests */
   // webServer: {
