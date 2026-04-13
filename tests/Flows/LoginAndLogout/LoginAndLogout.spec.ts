@@ -7,7 +7,7 @@ test("LoginAndLogout", async ({ page }) => {
   const password = process.env.KEYCLOAK_PASSWORD;
 
   // Open HKube login page
-  await page.goto("/hkube/dashboard/#/jobs?&experiment=main");
+  await page.goto(process.env.BASE_URL || "http://localhost:9050/");
 
   if (isKeycloakEnabled) {
     if (!username || !password) {
