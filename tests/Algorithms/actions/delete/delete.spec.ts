@@ -9,7 +9,7 @@ test("delete algorithm", async ({ page }) => {
   const algo = await createAlgorithm(algorithmName);
 
   // link to algorithms page
-  await page.goto("/");
+  await page.goto(process.env.BASE_URL || "http://localhost:9050/");
   await page.getByTestId("left-sidebar-link-algorithms").click();
 
   // find the algorithm row by name and click delete
