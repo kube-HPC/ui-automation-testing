@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { createAlgorithm } from "../../../../api/algorithmApi";
+import { createAlgorithm, deleteAlgorithm } from "../../../../api/algorithmApi";
 import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
 
 test("edit algorithm", async ({ page }) => {
@@ -18,4 +18,6 @@ test("edit algorithm", async ({ page }) => {
   await editButtonInRow.click();
   // assert edit drawer is open with correct algorithm details
   await expect(page.getByTestId("popup-drawer")).toContainText(algorithmName);
+  // cleanup - delete the algorithm
+  await deleteAlgorithm(algorithmName).catch(console.error);
 });
