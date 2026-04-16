@@ -16,7 +16,17 @@ test("edit algorithm", async ({ page }) => {
     const editButtonInRow = algorithmRow.hkGridGetActionButton(page, "edit");
     await editButtonInRow.click();
 
-    await expect(page.getByTestId("popup-drawer")).toContainText(algorithmName);
+    await page.getByRole("textbox", { name: "Description :" }).click();
+    await page
+      .getByRole("textbox", { name: "Description :" })
+      .fill("test edit");
+
+    await page.getByRole("button", { name: "Save" }).click();
+    await editButtonInRow.click();
+
+    await expect(
+      page.getByRole("textbox", { name: "Description :" }),
+    ).toHaveValue("test edit");
   } finally {
     await deleteAlgorithm(algorithmName).catch(console.error);
   }
