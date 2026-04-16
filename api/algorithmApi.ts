@@ -1,11 +1,13 @@
 import axios from "axios";
 import { getApiAuthHeaders } from "./authHeaders";
 import { algorithmPayload } from "./mocks/Algorithms/algorithmPayload";
+
 const API_URL = `${process.env.BACKEND_URL}store/algorithms`;
+const PRFIX = process.env.PREFIX;
 
 export async function deleteAlgorithm(name: string) {
   const headers = await getApiAuthHeaders();
-  const url = `${API_URL}/${name}?force=true`;
+  const url = `${API_URL}/${PRFIX}${name}?force=true`;
   await axios.delete(url, { headers });
 }
 
