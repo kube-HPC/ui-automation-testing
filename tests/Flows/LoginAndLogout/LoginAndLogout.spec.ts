@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { gotoRoot } from "../../../helpers/global";
 
 test("LoginAndLogout", async ({ page }) => {
   const isKeycloakEnabled =
@@ -7,7 +8,7 @@ test("LoginAndLogout", async ({ page }) => {
   const password = process.env.KEYCLOAK_PASSWORD;
 
   // Open HKube login page
-  await page.goto(process.env.BASE_URL || "http://localhost:9050/");
+  await gotoRoot(page);
 
   if (isKeycloakEnabled) {
     if (!username || !password) {

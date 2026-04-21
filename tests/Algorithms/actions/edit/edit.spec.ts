@@ -2,6 +2,7 @@ import { expect, test } from "@playwright/test";
 import { createAlgorithm, deleteAlgorithm } from "../../../../api/algorithmApi";
 import { getSideBarLeftLink } from "../../../../helpers/sideBarLeft";
 import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
+import { gotoRoot } from "../../../../helpers/global";
 
 test("edit algorithm", async ({ page }) => {
   const algorithmName = "edit-algorithm";
@@ -9,7 +10,7 @@ test("edit algorithm", async ({ page }) => {
   await createAlgorithm(algorithmName);
 
   try {
-    await page.goto(process.env.BASE_URL || "http://localhost:9050/");
+    await gotoRoot(page);
     await getSideBarLeftLink(page, "algorithms").click();
 
     const algorithmRow = hkGridFindRowByColumnText(page, "name", algorithmName);

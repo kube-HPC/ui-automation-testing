@@ -1,5 +1,6 @@
 import path from "path";
 import { expect, test as setup } from "@playwright/test";
+import { gotoRoot } from "../helpers/global";
 
 const authStatePath = path.resolve(__dirname, "../playwright/.auth/user.json");
 
@@ -13,7 +14,7 @@ setup("authenticate once for UI tests", async ({ page }) => {
     );
   }
 
-  await page.goto(process.env.BASE_URL || "http://localhost:9050/");
+  await gotoRoot(page);
   await page.getByPlaceholder("Username").click();
   await page.getByPlaceholder("Username").fill(username);
   await page.getByPlaceholder("Password").click();
