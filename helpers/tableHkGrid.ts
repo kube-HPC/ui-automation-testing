@@ -10,8 +10,7 @@ export class HkGridRow {
   ): Locator {
     return this.row
       .getByTestId(actionsContainerTestId)
-      .locator("button")
-      .filter({ has: page.locator(`[aria-label="${ariaLabel}"]`) })
+      .getByTestId(ariaLabel)
       .first();
   }
 

@@ -11,7 +11,7 @@ Validate that a user can log in to HKube and then log out successfully.
 
 ## Test Steps
 
-1. Open the HKube page at `/hkube/dashboard/#/jobs?&experiment=main`.
+1. Open the HKube page at `/#/jobs?&experiment=main`.
 2. Enter the username in the Username field insert "ziv".
 3. Enter the password in the Password field insert "ziv".
 4. Click the Log In button.

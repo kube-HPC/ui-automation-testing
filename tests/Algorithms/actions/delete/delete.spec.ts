@@ -1,6 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { createAlgorithm } from "../../../../api/algorithmApi";
+import { getSideBarLeftLink } from "../../../../helpers/sideBarLeft";
 import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
+import { gotoRoot } from "../../../../helpers/global";
 
 test("delete algorithm", async ({ page }) => {
   const algorithmName = "delete-algorithm";
@@ -9,8 +11,8 @@ test("delete algorithm", async ({ page }) => {
   const algo = await createAlgorithm(algorithmName);
 
   // link to algorithms page
-  await page.goto("/hkube/dashboard/#/");
-  await page.getByTestId("left-sidebar-link-algorithms").click();
+  await gotoRoot(page);
+  await getSideBarLeftLink(page, "algorithms").click();
 
   // find the algorithm row by name and click delete
   const algorithmRow = hkGridFindRowByColumnText(page, "name", algorithmName);
