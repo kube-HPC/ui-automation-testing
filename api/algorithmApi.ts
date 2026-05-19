@@ -13,7 +13,9 @@ export async function deleteAlgorithm(name: string) {
 
 export async function createAlgorithm(name: string) {
   // cleanup any existing algorithm with the same name to avoid conflicts
-  await deleteAlgorithm(name).catch(console.error);
+  await deleteAlgorithm(name).catch((e) => {
+    if (e?.response?.status !== 404) throw e;
+  });
 
   const payload = algorithmPayload(name);
   const headers = await getApiAuthHeaders();
