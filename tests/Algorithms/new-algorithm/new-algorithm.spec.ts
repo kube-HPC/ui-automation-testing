@@ -51,7 +51,7 @@ test("flow form new algorithm", async ({ page }) => {
     // verify that the algorithm is displayed in the algorithms list
     await getSideBarLeftLink(page, "algorithms").click();
     const algorithmRow = hkGridFindRowByColumnText(page, "name", algorithmName);
-    expect(algorithmRow.getLocator()).toContainText(algorithmName);
+    await expect(algorithmRow.getLocator()).toContainText(algorithmName, { timeout: 15000 });
   } finally {
     // delete the algorithm
     await deleteAlgorithm("new-algorithm").catch(console.error);
