@@ -5,13 +5,6 @@ import { getSideBarLeftLink } from "../../../helpers/sideBarLeft";
 
 
 
-test.use({
-  viewport: {
-    height: 1080,
-    width: 1920
-  }
-});
-
 test('go to jobs button', async ({ page }) => {
     // Create a new alg
     const algName = "goto-algorithm";
