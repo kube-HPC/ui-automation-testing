@@ -1,26 +1,42 @@
 import { Page } from "@playwright/test";
 import { getSideBarLeftLink } from "./sideBarLeft";
 
-// goto root page of hkube application
-// use to navigate to the root page of the hkube application.
-// It will use the BASE_URL environment variable if set, otherwise it will default to "http://localhost:9050/".
+/**
+ * Go to the root page of the HKube application.
+ *
+ * Use this to navigate to the root page of the HKube application.
+ * It uses the BASE_URL environment variable if it is set;
+ * otherwise, it defaults to "http://localhost:9050/".
+ * @param page - The Playwright page instance.
+ */
 export async function gotoRoot(page: Page) {
   await page.goto(process.env.BASE_URL || "http://localhost:9050/");
 }
 
-// goto root section jobs, algorithms, pipelines, etc.
-// use to navigate to a specific section of the hkube application,
-// such as "jobs", "algorithms", or "pipelines".
+/**
+ * Go to a specific root section (jobs, algorithms, pipelines, etc.).
+ *
+ * Use this to navigate to a specific section of the HKube application,
+ * such as "jobs", "algorithms", or "pipelines".
+ *
+ * @param page - The Playwright page instance.
+ * @param section - The sidebar section to open.
+ */
 export async function gotoRootSection(page: Page, section: string) {
   await gotoRoot(page);
   await getSideBarLeftLink(page, section).click();
 }
 
-// get name with prefix
-// use to get a name with a prefix, which is useful for c
-// reating unique names for algorithms, jobs, or pipelines in tests.
-// The importance of this is so that if we see algorithms or pipelines that are prefixed,
-// we know that they belong to the test.
+/**
+ * Get a name with the configured test prefix.
+ *
+ * Use this to generate unique names for algorithms, jobs, or pipelines in tests.
+ * The importance of this is that if we see algorithms or pipelines with the configured
+ * prefix, we know that they belong to the test.
+ *
+ * @param name - The base name.
+ * @returns The prefixed name.
+ */
 export function getNamePrefix(name: string): string {
   return `${process.env.PREFIX}${name}`;
 }
