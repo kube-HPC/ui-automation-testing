@@ -14,7 +14,7 @@ test("edit algorithm", async ({ page }) => {
     await getSideBarLeftLink(page, "algorithms").click();
 
     const algorithmRow = hkGridFindRowByColumnText(page, "name", algorithmName);
-    const editButtonInRow = algorithmRow.hkGridGetActionButton(page, "edit");
+    const editButtonInRow = algorithmRow.hkGridGetActionButton("edit");
     await editButtonInRow.click();
 
     await page.getByRole("textbox", { name: "Description :" }).click();

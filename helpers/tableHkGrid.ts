@@ -4,7 +4,6 @@ export class HkGridRow {
   constructor(private readonly row: Locator) {}
 
   hkGridGetActionButton(
-    page: Page,
     ariaLabel: string,
     actionsContainerTestId = "buttons-actions",
   ): Locator {

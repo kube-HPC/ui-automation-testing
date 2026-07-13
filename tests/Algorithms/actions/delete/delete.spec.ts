@@ -16,7 +16,7 @@ test("delete algorithm", async ({ page }) => {
 
   // find the algorithm row by name and click delete
   const algorithmRow = hkGridFindRowByColumnText(page, "name", algorithmName);
-  const deleteButtonInRow = algorithmRow.hkGridGetActionButton(page, "delete");
+  const deleteButtonInRow = algorithmRow.hkGridGetActionButton("delete");
   await deleteButtonInRow.click();
 
   // confirm delete

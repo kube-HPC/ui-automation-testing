@@ -14,7 +14,7 @@ test("run algorithm", async ({ page }) => {
     await getSideBarLeftLink(page, "algorithms").click();
 
     const algorithmRow = hkGridFindRowByColumnText(page, "name", algorithmName);
-    const runButtonInRow = algorithmRow.hkGridGetActionButton(page, "run");
+    const runButtonInRow = algorithmRow.hkGridGetActionButton("run");
     await runButtonInRow.click();
 
     await getSideBarLeftLink(page, "jobs").click();

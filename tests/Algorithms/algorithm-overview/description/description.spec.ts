@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { createAlgorithm, deleteAlgorithm } from "../../../../api/algorithmApi";
 import { getSideBarLeftLink } from "../../../../helpers/sideBarLeft";
 import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
-import { gotoRoot } from "../../../../helpers/global";
+import { gotoRoot, gotoRootSection } from "../../../../helpers/global";
 
 test("check readme on tab description algorithm", async ({ page }) => {
   const textReadme = "Test Algorithm Readme Example";
@@ -11,14 +11,10 @@ test("check readme on tab description algorithm", async ({ page }) => {
   await createAlgorithm(algorithmName);
 
   try {
-    await gotoRoot(page);
-    await getSideBarLeftLink(page, "algorithms").click();
+    await gotoRootSection(page, "algorithms");
 
     const algorithmRow = hkGridFindRowByColumnText(page, "name", algorithmName);
-    let overviewButtonInRow = algorithmRow.hkGridGetActionButton(
-      page,
-      "overview",
-    );
+    let overviewButtonInRow = algorithmRow.hkGridGetActionButton("overview");
     await overviewButtonInRow.click();
 
     await page.getByRole("tab", { name: "Description" }).click();
@@ -33,18 +29,15 @@ test("check readme on tab description algorithm", async ({ page }) => {
     await page.locator("textarea").fill(textReadme);
     await page.getByRole("button", { name: "Apply Markdown" }).click();
 
-    await gotoRoot(page);
-    await getSideBarLeftLink(page, "algorithms").click();
+    await gotoRootSection(page, "algorithms");
 
     const algorithmRow2 = hkGridFindRowByColumnText(
       page,
       "name",
       algorithmName,
     );
-    let overviewButtonInRowStep2 = algorithmRow2.hkGridGetActionButton(
-      page,
-      "overview",
-    );
+    let overviewButtonInRowStep2 =
+      algorithmRow2.hkGridGetActionButton("overview");
     await overviewButtonInRowStep2.click();
 
     await page.getByRole("tab", { name: "Description" }).click();
