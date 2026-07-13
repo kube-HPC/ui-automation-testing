@@ -1,6 +1,9 @@
 import { expect, test } from "@playwright/test";
 import { createAlgorithm, deleteAlgorithm } from "../../../../api/algorithmApi";
-import { getSideBarLeftLink } from "../../../../helpers/sideBarLeft";
+import {
+  getSideBarLeftLink,
+  NamesLeftLink,
+} from "../../../../helpers/sideBarLeft";
 import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
 import { gotoRoot } from "../../../../helpers/global";
 
@@ -12,7 +15,7 @@ test("search algorithm", async ({ page }) => {
 
   try {
     await gotoRoot(page);
-    await getSideBarLeftLink(page, "algorithms").click();
+    await getSideBarLeftLink(page, NamesLeftLink.ALGORITHMS).click();
 
     // search for the algorithm using the search input
     await page.locator("#qAlgorithmName").click();

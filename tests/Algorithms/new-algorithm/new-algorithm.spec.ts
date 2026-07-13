@@ -1,6 +1,9 @@
 import { expect, test } from "@playwright/test";
 import { deleteAlgorithm } from "../../../api/algorithmApi";
-import { getSideBarLeftLink } from "../../../helpers/sideBarLeft";
+import {
+  getSideBarLeftLink,
+  NamesLeftLink,
+} from "../../../helpers/sideBarLeft";
 import { hkGridFindRowByColumnText } from "../../../helpers/tableHkGrid";
 import { getNamePrefix, gotoRoot } from "../../../helpers/global";
 
@@ -9,7 +12,7 @@ test("flow form new algorithm", async ({ page }) => {
 
   try {
     await gotoRoot(page);
-    await getSideBarLeftLink(page, "algorithms").click();
+    await getSideBarLeftLink(page, NamesLeftLink.ALGORITHMS).click();
 
     // click button New Algorithm
     await page.getByRole("button", { name: "New Algorithm" }).click();
@@ -49,9 +52,11 @@ test("flow form new algorithm", async ({ page }) => {
     await page.getByRole("button", { name: "Save" }).click();
 
     // verify that the algorithm is displayed in the algorithms list
-    await getSideBarLeftLink(page, "algorithms").click();
+    await getSideBarLeftLink(page, NamesLeftLink.ALGORITHMS).click();
     const algorithmRow = hkGridFindRowByColumnText(page, "name", algorithmName);
-    await expect(algorithmRow.getLocator()).toContainText(algorithmName, { timeout: 15000 });
+    await expect(algorithmRow.getLocator()).toContainText(algorithmName, {
+      timeout: 15000,
+    });
   } finally {
     // delete the algorithm
     await deleteAlgorithm("new-algorithm").catch(console.error);

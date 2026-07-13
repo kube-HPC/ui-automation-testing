@@ -1,6 +1,9 @@
 import { expect, test } from "@playwright/test";
 import { createAlgorithm } from "../../../../api/algorithmApi";
-import { getSideBarLeftLink } from "../../../../helpers/sideBarLeft";
+import {
+  getSideBarLeftLink,
+  NamesLeftLink,
+} from "../../../../helpers/sideBarLeft";
 import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
 import { gotoRoot } from "../../../../helpers/global";
 
@@ -12,7 +15,7 @@ test("delete algorithm", async ({ page }) => {
 
   // link to algorithms page
   await gotoRoot(page);
-  await getSideBarLeftLink(page, "algorithms").click();
+  await getSideBarLeftLink(page, NamesLeftLink.ALGORITHMS).click();
 
   // find the algorithm row by name and click delete
   const algorithmRow = hkGridFindRowByColumnText(page, "name", algorithmName);

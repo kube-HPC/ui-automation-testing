@@ -1,5 +1,5 @@
 import { Page } from "@playwright/test";
-import { getSideBarLeftLink } from "./sideBarLeft";
+import { getSideBarLeftLink, SideBarLeftLinkName } from "./sideBarLeft";
 
 /**
  * Go to the root page of the HKube application.
@@ -22,7 +22,10 @@ export async function gotoRoot(page: Page) {
  * @param page - The Playwright page instance.
  * @param section - The sidebar section to open.
  */
-export async function gotoRootSection(page: Page, section: string) {
+export async function gotoRootSection(
+  page: Page,
+  section: SideBarLeftLinkName,
+) {
   await gotoRoot(page);
   await getSideBarLeftLink(page, section).click();
 }

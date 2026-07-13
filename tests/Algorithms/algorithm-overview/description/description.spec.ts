@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { createAlgorithm, deleteAlgorithm } from "../../../../api/algorithmApi";
-import { getSideBarLeftLink } from "../../../../helpers/sideBarLeft";
+import { NamesLeftLink } from "../../../../helpers/sideBarLeft";
 import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
-import { gotoRoot, gotoRootSection } from "../../../../helpers/global";
+import { gotoRootSection } from "../../../../helpers/global";
 
 test("check readme on tab description algorithm", async ({ page }) => {
   const textReadme = "Test Algorithm Readme Example";
@@ -11,7 +11,7 @@ test("check readme on tab description algorithm", async ({ page }) => {
   await createAlgorithm(algorithmName);
 
   try {
-    await gotoRootSection(page, "algorithms");
+    await gotoRootSection(page, NamesLeftLink.ALGORITHMS);
 
     const algorithmRow = hkGridFindRowByColumnText(page, "name", algorithmName);
     let overviewButtonInRow = algorithmRow.hkGridGetActionButton("overview");
@@ -29,7 +29,7 @@ test("check readme on tab description algorithm", async ({ page }) => {
     await page.locator("textarea").fill(textReadme);
     await page.getByRole("button", { name: "Apply Markdown" }).click();
 
-    await gotoRootSection(page, "algorithms");
+    await gotoRootSection(page, NamesLeftLink.ALGORITHMS);
 
     const algorithmRow2 = hkGridFindRowByColumnText(
       page,

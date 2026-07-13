@@ -1,6 +1,9 @@
 import { expect, test } from "@playwright/test";
 import { createAlgorithm, deleteAlgorithm } from "../../../../api/algorithmApi";
-import { getSideBarLeftLink } from "../../../../helpers/sideBarLeft";
+import {
+  getSideBarLeftLink,
+  NamesLeftLink,
+} from "../../../../helpers/sideBarLeft";
 import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
 import { gotoRoot } from "../../../../helpers/global";
 
@@ -11,13 +14,13 @@ test("run algorithm", async ({ page }) => {
 
   try {
     await gotoRoot(page);
-    await getSideBarLeftLink(page, "algorithms").click();
+    await getSideBarLeftLink(page, NamesLeftLink.ALGORITHMS).click();
 
     const algorithmRow = hkGridFindRowByColumnText(page, "name", algorithmName);
     const runButtonInRow = algorithmRow.hkGridGetActionButton("run");
     await runButtonInRow.click();
 
-    await getSideBarLeftLink(page, "jobs").click();
+    await getSideBarLeftLink(page, NamesLeftLink.JOBS).click();
     const jobRow = hkGridFindRowByColumnText(
       page,
       "pipeline.name",
