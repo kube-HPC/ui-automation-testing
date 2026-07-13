@@ -5,6 +5,7 @@ import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
 import { gotoRoot } from "../../../../helpers/global";
 
 test("check readme on tab description algorithm", async ({ page }) => {
+  const textReadme = "Test Algorithm Readme Example";
   const algorithmName = "readme-algorithm";
 
   await createAlgorithm(algorithmName);
@@ -29,13 +30,25 @@ test("check readme on tab description algorithm", async ({ page }) => {
     await page.getByRole("button", { name: "Edit Read Me" }).click();
 
     await page.locator("textarea").press("ControlOrMeta+a");
-    await page.locator("textarea").fill("#test algo");
+    await page.locator("textarea").fill(textReadme);
     await page.getByRole("button", { name: "Apply Markdown" }).click();
 
-    overviewButtonInRow = algorithmRow.hkGridGetActionButton(page, "overview");
+    await gotoRoot(page);
+    await getSideBarLeftLink(page, "algorithms").click();
+
+    const algorithmRow2 = hkGridFindRowByColumnText(
+      page,
+      "name",
+      algorithmName,
+    );
+    let overviewButtonInRowStep2 = algorithmRow2.hkGridGetActionButton(
+      page,
+      "overview",
+    );
+    await overviewButtonInRowStep2.click();
 
     await page.getByRole("tab", { name: "Description" }).click();
-    await expect(page.getByText("#test algo")).toBeVisible();
+    await expect(page.getByText(textReadme)).toBeVisible();
   } finally {
     await deleteAlgorithm(algorithmName).catch(console.error);
   }
