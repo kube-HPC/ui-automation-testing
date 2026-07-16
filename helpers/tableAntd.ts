@@ -40,7 +40,7 @@ export class AntTableRow {
 export function antTableFindRowByText(page: Page, text: string): AntTableRow {
   const row = page
     .getByTestId("tableAntd")
-    .locator("tbody.ant-table-tbody > tr.ant-table-row")
+    .getByRole("row")
     .filter({ hasText: text })
     .first();
 
