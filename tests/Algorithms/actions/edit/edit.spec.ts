@@ -1,6 +1,9 @@
 import { expect, test } from "@playwright/test";
 import { createAlgorithm, deleteAlgorithm } from "../../../../api/algorithmApi";
-import { getSideBarLeftLink } from "../../../../helpers/sideBarLeft";
+import {
+  getSideBarLeftLink,
+  NamesLeftLink,
+} from "../../../../helpers/sideBarLeft";
 import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
 import { gotoRoot } from "../../../../helpers/global";
 
@@ -11,10 +14,10 @@ test("edit algorithm", async ({ page }) => {
 
   try {
     await gotoRoot(page);
-    await getSideBarLeftLink(page, "algorithms").click();
+    await getSideBarLeftLink(page, NamesLeftLink.ALGORITHMS).click();
 
     const algorithmRow = hkGridFindRowByColumnText(page, "name", algorithmName);
-    const editButtonInRow = algorithmRow.hkGridGetActionButton(page, "edit");
+    const editButtonInRow = algorithmRow.hkGridGetActionButton("edit");
     await editButtonInRow.click();
 
     await page.getByRole("textbox", { name: "Description :" }).click();

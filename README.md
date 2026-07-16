@@ -39,6 +39,21 @@ or
 npx playwright test
 ```
 
+## One-Time Login Flow (Keycloak)
+
+When `VITE_KEYCLOAK_ENABLE=true`, Playwright runs a dedicated setup project first:
+
+- `tests/auth.setup.ts` logs in once and saves the authenticated browser state to `playwright/.auth/user.json`
+- all tests in the `chrome` project reuse that state via `storageState`
+- `tests/Flows/LoginAndLogout/LoginAndLogout.spec.ts` runs separately in `auth-flow` to validate login/logout itself
+
+Required environment variables for this flow:
+
+- `VITE_KEYCLOAK_ENABLE=true`
+- `KEYCLOAK_USERNAME`
+- `KEYCLOAK_PASSWORD`
+- `BASE_URL`
+
 ## Update Dependencies
 
 If you pull new changes from the repository, run:

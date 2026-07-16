@@ -1,7 +1,13 @@
 import { expect, test } from "@playwright/test";
 import { deleteAlgorithm } from "../../../../api/algorithmApi";
-import { createPipelineWithAlgorithm, deletePipeline } from "../../../../api/pipelineApi";
-import { getSideBarLeftLink } from "../../../../helpers/sideBarLeft";
+import {
+  createPipelineWithAlgorithm,
+  deletePipeline,
+} from "../../../../api/pipelineApi";
+import {
+  getSideBarLeftLink,
+  NamesLeftLink,
+} from "../../../../helpers/sideBarLeft";
 import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
 import { gotoRoot } from "../../../../helpers/global";
 
@@ -14,10 +20,10 @@ test("run pipeline and check jobs via link", async ({ page }) => {
 
   try {
     await gotoRoot(page);
-    await getSideBarLeftLink(page, "pipelines").click();
+    await getSideBarLeftLink(page, NamesLeftLink.PIPELINES).click();
 
     const pipelineRow = hkGridFindRowByColumnText(page, "name", pipelineName);
-    const runButton = pipelineRow.hkGridGetActionButton(page, "run");
+    const runButton = pipelineRow.hkGridGetActionButton("run");
     await runButton.click();
 
     await page.getByRole("button", { name: "Run check" }).click();

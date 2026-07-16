@@ -1,31 +1,33 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 import { createAlgorithm, deleteAlgorithm } from "../../../api/algorithmApi";
 import { gotoRoot } from "../../../helpers/global";
-import { getSideBarLeftLink } from "../../../helpers/sideBarLeft";
+import {
+  getSideBarLeftLink,
+  NamesLeftLink,
+} from "../../../helpers/sideBarLeft";
 
+test("go to jobs button", async ({ page }) => {
+  // Create a new alg
+  const algName = "goto-algorithm";
+  let isAlgorithmCreated = false;
 
-
-test('go to jobs button', async ({ page }) => {
-    // Create a new alg
-    const algName = "goto-algorithm";
-    let isAlgorithmCreated = false;
-
-    try {
-      const createdAlgorithm = await createAlgorithm(algName);
-      // Go to algorithms
-      await gotoRoot(page);
-      await getSideBarLeftLink(page, "algorithms").click();
-      // Run the algorithm
-      await page.getByRole('row', { name: createdAlgorithm.name }).getByTestId('run').click();
-      // Click popup
-      await page.getByRole('link', { name: 'Jobs', exact: true }).click();
-      // Expect it to move us to Jobs
-      await expect(page).toHaveURL(/#\/jobs(?:\?|$)/);
-    } catch (error) {
-      throw error;
-
-    } finally {
-        await deleteAlgorithm(algName);
-      }
-    }
-    );
+  try {
+    const createdAlgorithm = await createAlgorithm(algName);
+    // Go to algorithms
+    await gotoRoot(page);
+    await getSideBarLeftLink(page, NamesLeftLink.ALGORITHMS).click();
+    // Run the algorithm
+    await page
+      .getByRole("row", { name: createdAlgorithm.name })
+      .getByTestId("run")
+      .click();
+    // Click popup
+    await page.getByRole("link", { name: "Jobs", exact: true }).click();
+    // Expect it to move us to Jobs
+    await expect(page).toHaveURL(/#\/jobs(?:\?|$)/);
+  } catch (error) {
+    throw error;
+  } finally {
+    await deleteAlgorithm(algName);
+  }
+});
