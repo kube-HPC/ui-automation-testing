@@ -1,5 +1,5 @@
-└── tests
-├── Algorithms
+tests
+├── algorithms
 │ ├── actions
 │ │ ├── debug
 │ │ │ ├── debug.md
@@ -16,7 +16,7 @@
 │ │ └── search
 │ │ ├── search.md
 │ │ └── search.spec.ts
-│ ├── algorithm-overview
+│ ├── algorithmOverview
 │ │ ├── builds
 │ │ │ ├── builds.md
 │ │ │ └── builds.spec.ts
@@ -29,56 +29,56 @@
 │ │ ├── versions
 │ │ │ ├── versions.md
 │ │ │ └── versions.spec.ts
-│ │ └── version-time-table
-│ │ ├── version-time-table.md
-│ │ └── version-time-table.spec.ts
-│ ├── go-to-jobs
-│ │ ├── go-to-jobs.md
-│ │ └── go-to-jobs.spec.ts
-│ └── new-algorithm
-│ ├── new-algorithm.md
-│ └── new-algorithm.spec.ts
+│ │ └── versionTimeTable
+│ │ ├── versionTimeTable.md
+│ │ └── versionTimeTable.spec.ts
+│ ├── goToJobs
+│ │ ├── goToJobs.md
+│ │ └── goToJobs.spec.ts
+│ └── newAlgorithm
+│ ├── newAlgorithm.md
+│ └── newAlgorithm.spec.ts
 ├── auth.setup.ts
-├── Datasources
+├── datasources
 │ └── datasources
 │ ├── datasources.md
 │ └── datasources.spec.ts
-├── ErrorLog
-│ ├── filter-time
-│ │ ├── filter-time.md
-│ │ └── filter-time.spec.ts
+├── errorLog
+│ ├── filterTime
+│ │ ├── filterTime.md
+│ │ └── filterTime.spec.ts
 │ └── search
 │ ├── search.md
 │ └── search.spec.ts
 ├── example.spec.ts
-├── Flows
+├── flows
 │ ├── flow2
 │ │ ├── flow2.md
 │ │ └── flow2.spec.ts
 │ ├── flow3
 │ │ ├── flow3.md
 │ │ └── flow3.spec.ts
-│ └── LoginAndLogout
-│ ├── LoginAndLogout.md
-│ └── LoginAndLogout.spec.ts
+│ └── loginAndLogout
+│ ├── loginAndLogout.md
+│ └── loginAndLogout.spec.ts
 ├── jobs
 │ ├── actions
-│ │ ├── click-edit-pipeline-icon
-│ │ │ ├── click-edit-pipeline-icon.md
-│ │ │ └── click-edit-pipeline-icon.spec.ts
-│ │ ├── click-filter-jobs-by-pipeline
-│ │ │ ├── click-filter-jobs-by-pipeline.md
-│ │ │ └── click-filter-jobs-by-pipeline.spec.ts
-│ │ ├── click-rerun
-│ │ │ ├── click-rerun.md
-│ │ │ └── click-rerun.spec.ts
+│ │ ├── clickEditPipelineIcon
+│ │ │ ├── clickEditPipelineIcon.md
+│ │ │ └── clickEditPipelineIcon.spec.ts
+│ │ ├── clickFilterJobsByPipeline
+│ │ │ ├── clickFilterJobsByPipeline.md
+│ │ │ └── clickFilterJobsByPipeline.spec.ts
+│ │ ├── clickRerun
+│ │ │ ├── clickRerun.md
+│ │ │ └── clickRerun.spec.ts
 │ │ └── filters
 │ │ ├── filters.md
 │ │ └── filters.spec.ts
 │ └── overviewFolder
-│ ├── extended-pipeline
-│ │ ├── extended-pipeline.md
-│ │ └── extended-pipeline.spec.ts
+│ ├── extendedPipeline
+│ │ ├── extendedPipeline.md
+│ │ └── extendedPipeline.spec.ts
 │ ├── graph
 │ │ ├── graph.md
 │ │ └── graph.spec.ts
@@ -88,7 +88,7 @@
 │ └── trace
 │ ├── trace.md
 │ └── trace.spec.ts
-├── Monitoring
+├── monitoring
 │ ├── cpu
 │ │ ├── cpu.md
 │ │ └── cpu.spec.ts
@@ -98,10 +98,10 @@
 │ ├── gpu
 │ │ ├── gpu.md
 │ │ └── gpu.spec.ts
-│ └── memory-and-storage
-│ ├── memory-and-storage.md
-│ └── memory-and-storage.spec.ts
-├── Pipelines
+│ └── memoryAndStorage
+│ ├── memoryAndStorage.md
+│ └── memoryAndStorage.spec.ts
+├── pipelines
 │ ├── actions
 │ │ ├── delete
 │ │ │ ├── delete.md
@@ -115,13 +115,13 @@
 │ │ ├── search
 │ │ │ ├── search.md
 │ │ │ └── search.spec.ts
-│ │ └── stop-all-jobs
-│ │ ├── stop-all-jobs.md
-│ │ └── stop-all-jobs.spec.ts
-│ ├── new-pipeline
-│ │ ├── new-pipeline.md
-│ │ └── new-pipeline.spec.ts
-│ └── pipeline-overview
+│ │ └── stopAllJobs
+│ │ ├── stopAllJobs.md
+│ │ └── stopAllJobs.spec.ts
+│ ├── newPipeline
+│ │ ├── newPipeline.md
+│ │ └── newPipeline.spec.ts
+│ └── pipelineOverview
 │ ├── description
 │ │ ├── description.md
 │ │ └── description.spec.ts
@@ -131,21 +131,21 @@
 │ ├── versions
 │ │ ├── versions.md
 │ │ └── versions.spec.ts
-│ └── version-time-table
-│ ├── version-time-table.md
-│ └── version-time-table.spec.ts
-├── Queue
-│ ├── clear-queue
-│ │ ├── clear-queue.md
-│ │ └── clear-queue.spec.ts
-│ └── EditList
-│ ├── EditList.md
-│ └── EditList.spec.ts
-└── Workers
+│ └── versionTimeTable
+│ ├── versionTimeTable.md
+│ └── versionTimeTable.spec.ts
+├── queue
+│ ├── clearQueue
+│ │ ├── clearQueue.md
+│ │ └── clearQueue.spec.ts
+│ └── editList
+│ ├── editList.md
+│ └── editList.spec.ts
+└── workers
 └── actions
-├── stop-all-workers
-│ ├── stop-all-workers.md
-│ └── stop-all-workers.spec.ts
-└── stop-worker
-├── stop-worker.md
-└── stop-worker.spec.ts
+├── stopAllWorkers
+│ ├── stopAllWorkers.md
+│ └── stopAllWorkers.spec.ts
+└── stopWorker
+├── stopWorker.md
+└── stopWorker.spec.ts

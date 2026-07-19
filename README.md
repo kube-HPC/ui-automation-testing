@@ -64,7 +64,7 @@ When `VITE_KEYCLOAK_ENABLE=true`, Playwright runs a dedicated setup project firs
 
 - `tests/auth.setup.ts` logs in once and saves the authenticated browser state to `playwright/.auth/user.json`
 - all tests in the `chrome` project reuse that state via `storageState`
-- `tests/Flows/LoginAndLogout/LoginAndLogout.spec.ts` runs separately in `auth-flow` to validate login/logout itself
+- `tests/flows/loginAndLogout/loginAndLogout.spec.ts` runs separately in `auth-flow` to validate login/logout itself
 
 Required environment variables for this flow:
 

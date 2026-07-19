@@ -1,10 +1,14 @@
 import path from "path";
 import { expect, test as setup } from "@playwright/test";
 import { gotoRoot } from "../helpers/global";
+import { buildUniqueTestName } from "../helpers/testDataFactory";
 
 const authStatePath = path.resolve(__dirname, "../playwright/.auth/user.json");
 
 setup("authenticate once for UI tests", async ({ page }) => {
+  const runId = buildUniqueTestName("authSetup");
+  setup.info().annotations.push({ type: "runId", description: runId });
+
   const username = process.env.KEYCLOAK_USERNAME;
   const password = process.env.KEYCLOAK_PASSWORD;
 
