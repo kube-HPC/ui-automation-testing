@@ -39,6 +39,25 @@ or
 npx playwright test
 ```
 
+## UI Automation Contribution Policy
+
+Before opening a PR with new or changed tests, run:
+
+```bash
+npm run check:test-structure
+```
+
+This quality gate enforces:
+
+- no empty files under `tests/`
+- camelCase names for folders under `tests/`
+- camelCase names for files under `tests/` (based on file name before extension)
+
+There is no allowlist and no baseline exceptions.
+Any violation fails the check.
+
+Then run the relevant Playwright tests for your change.
+
 ## One-Time Login Flow (Keycloak)
 
 When `VITE_KEYCLOAK_ENABLE=true`, Playwright runs a dedicated setup project first:
