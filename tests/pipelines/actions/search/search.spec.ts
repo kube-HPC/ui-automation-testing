@@ -4,18 +4,18 @@ import {
   createPipelineWithAlgorithm,
   deletePipeline,
 } from "../../../../api/pipelineApi";
+import { gotoRoot } from "../../../../helpers/global";
 import {
   getSideBarLeftLink,
   NamesLeftLink,
 } from "../../../../helpers/sideBarLeft";
 import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
-import { gotoRoot } from "../../../../helpers/global";
 import { generateTestName } from "../../../../helpers/testDataFactory";
 
-test("run pipeline and check jobs via link", async ({ page }) => {
-  const resourceName = generateTestName("runpipeline");
-  const algorithmName = `${resourceName}algorithm`;
-  const pipelineName = `${resourceName}pipeline`;
+test("search pipeline", async ({ page }) => {
+  const resourceName = generateTestName("searchpipeline");
+  const algorithmName = resourceName + "algorithm";
+  const pipelineName = resourceName + "pipeline";
 
   await createPipelineWithAlgorithm(pipelineName, algorithmName);
 
@@ -23,20 +23,17 @@ test("run pipeline and check jobs via link", async ({ page }) => {
     await gotoRoot(page);
     await getSideBarLeftLink(page, NamesLeftLink.PIPELINES).click();
 
+    await page.locator("#qPipelineName").fill(pipelineName);
+    await page.locator("#qPipelineName").press("Enter");
+
+    const dataRows = page
+      .getByTestId("hk-grid")
+      .locator('[role="row"][row-index]');
+
+    await expect(dataRows).toHaveCount(1);
+
     const pipelineRow = hkGridFindRowByColumnText(page, "name", pipelineName);
-    const runButton = pipelineRow.hkGridGetActionButton("run");
-    await runButton.click();
-
-    await page.getByRole("button", { name: "Run check" }).click();
-
-    await page.getByRole("link", { name: "Jobs", exact: true }).click();
-
-    const jobRow = hkGridFindRowByColumnText(
-      page,
-      "pipeline.name",
-      pipelineName,
-    );
-    await expect(jobRow.getLocator()).toBeVisible();
+    await expect(pipelineRow.getLocator()).toContainText(pipelineName);
   } finally {
     await deletePipeline(pipelineName).catch(console.error);
     await deleteAlgorithm(algorithmName).catch(console.error);

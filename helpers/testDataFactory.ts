@@ -19,16 +19,16 @@ function normalizeResourceNamePart(value: string) {
  * Generates a short unique suffix for test resources.
  *
  * Combines a base-36 timestamp with a base-36 random chunk,
- * then truncates to 8 characters.
+ * then truncates to 4 characters.
  *
- * @returns A lower-case 8-character id.
+ * @returns A lower-case 4-character id.
  */
 export function generateId() {
   const timestampPart = Date.now().toString(36);
   const randomPart = Math.floor(Math.random() * 1_000_000)
     .toString(36)
     .padStart(4, "0");
-  return `${timestampPart}${randomPart}`.slice(-8);
+  return `${timestampPart}${randomPart}`.slice(-4);
 }
 
 /**
