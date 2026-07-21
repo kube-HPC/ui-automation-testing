@@ -19,14 +19,14 @@ Do not commit empty files.
 
 ## 4. Use a Unique Name for Test Data
 
-Use `buildUniqueTestName` from `helpers/testDataFactory.ts` when creating test resources.
+Use `generateTestName` from `helpers/testDataFactory.ts` when creating test resources.
 
 Example:
 
 ```ts
-import { buildUniqueTestName } from "../../../helpers/testDataFactory";
+import { generateTestName } from "../../../helpers/testDataFactory";
 
-const algorithmName = buildUniqueTestName("edit-algorithm");
+const algorithmName = generateTestName("edit-algorithm");
 ```
 
 ## 5. Always Clean Up Created Resources

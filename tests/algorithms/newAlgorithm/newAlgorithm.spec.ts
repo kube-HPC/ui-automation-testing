@@ -6,10 +6,10 @@ import {
 } from "../../../helpers/sideBarLeft";
 import { hkGridFindRowByColumnText } from "../../../helpers/tableHkGrid";
 import { gotoRoot } from "../../../helpers/global";
-import { buildUniqueTestName } from "../../../helpers/testDataFactory";
+import { generateTestName } from "../../../helpers/testDataFactory";
 
 test("flow form new algorithm", async ({ page }) => {
-  const algorithmName = buildUniqueTestName("newAlgorithm");
+  const algorithmName = generateTestName("newAlgorithm");
 
   try {
     await gotoRoot(page);

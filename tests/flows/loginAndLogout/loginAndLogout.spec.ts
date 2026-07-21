@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
 import { gotoRoot } from "../../../helpers/global";
-import { buildUniqueTestName } from "../../../helpers/testDataFactory";
+import { generateTestName } from "../../../helpers/testDataFactory";
 
 test("LoginAndLogout", async ({ page }) => {
-  const runId = buildUniqueTestName("loginAndLogout");
+  const runId = generateTestName("loginAndLogout");
   test.info().annotations.push({ type: "runId", description: runId });
 
   const isKeycloakEnabled =

@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
-import { buildUniqueTestName } from "../helpers/testDataFactory";
+import { generateTestName } from "../helpers/testDataFactory";
 
 test("has title", async ({ page }) => {
-  const runId = buildUniqueTestName("exampleHasTitle");
+  const runId = generateTestName("exampleHasTitle");
   test.info().annotations.push({ type: "runId", description: runId });
 
   await page.goto("https://playwright.dev/");
@@ -12,7 +12,7 @@ test("has title", async ({ page }) => {
 });
 
 test("get started link", async ({ page }) => {
-  const runId = buildUniqueTestName("exampleGetStarted");
+  const runId = generateTestName("exampleGetStarted");
   test.info().annotations.push({ type: "runId", description: runId });
 
   await page.goto("https://playwright.dev/");

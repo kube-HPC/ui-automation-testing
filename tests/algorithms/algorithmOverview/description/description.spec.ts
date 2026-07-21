@@ -3,11 +3,11 @@ import { createAlgorithm, deleteAlgorithm } from "../../../../api/algorithmApi";
 import { NamesLeftLink } from "../../../../helpers/sideBarLeft";
 import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
 import { gotoRootSection } from "../../../../helpers/global";
-import { buildUniqueTestName } from "../../../../helpers/testDataFactory";
+import { generateTestName } from "../../../../helpers/testDataFactory";
 
 test("check readme on tab description algorithm", async ({ page }) => {
   const textReadme = "Test Algorithm Readme Example";
-  const algorithmName = buildUniqueTestName("readmeAlgorithm");
+  const algorithmName = generateTestName("readmeAlgorithm");
 
   await createAlgorithm(algorithmName);
 

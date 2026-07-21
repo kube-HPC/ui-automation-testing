@@ -6,10 +6,10 @@ import {
 } from "../../../../helpers/sideBarLeft";
 import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
 import { gotoRoot } from "../../../../helpers/global";
-import { buildUniqueTestName } from "../../../../helpers/testDataFactory";
+import { generateTestName } from "../../../../helpers/testDataFactory";
 
 test("search algorithm", async ({ page }) => {
-  const algorithmName = buildUniqueTestName("searchAlgorithm");
+  const algorithmName = generateTestName("searchAlgorithm");
 
   // create an algorithm to search for
   await createAlgorithm(algorithmName);

@@ -1,3 +1,7 @@
+export function generateId() {
+  return (Date.now() + Math.random()).toString(36).slice(-4).toUpperCase();
+}
+
 /**
  * Build a deterministic unique name for test-created resources.
  *
@@ -12,10 +16,8 @@
  * @returns A unique, prefixed resource name safe for test data creation.
  *
  * @example
- * const algorithmName = buildUniqueTestName("edit-algorithm");
+ * const algorithmName = generateTestName("edit-algorithm");
  */
-export function buildUniqueTestName(baseName: string, prefix = ""): string {
-  const timestamp = Date.now().toString(36);
-  const random = Math.random().toString(36).slice(2, 7);
-  return `${prefix}${baseName}-${timestamp}-${random}`;
+export function generateTestName(baseName: string): string {
+  return `${baseName}-${generateId()}`;
 }

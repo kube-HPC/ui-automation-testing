@@ -6,10 +6,10 @@ import {
 } from "../../../../helpers/sideBarLeft";
 import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
 import { gotoRoot } from "../../../../helpers/global";
-import { buildUniqueTestName } from "../../../../helpers/testDataFactory";
+import { generateTestName } from "../../../../helpers/testDataFactory";
 
 test("delete algorithm", async ({ page }) => {
-  const algorithmName = buildUniqueTestName("deleteAlgorithm");
+  const algorithmName = generateTestName("deleteAlgorithm");
   let shouldCleanup = false;
 
   // create algorithm to delete

@@ -5,11 +5,11 @@ import {
   getSideBarLeftLink,
   NamesLeftLink,
 } from "../../../helpers/sideBarLeft";
-import { buildUniqueTestName } from "../../../helpers/testDataFactory";
+import { generateTestName } from "../../../helpers/testDataFactory";
 
 test("go to jobs button", async ({ page }) => {
   // Create a new alg
-  const algName = buildUniqueTestName("goToJobsAlgorithm");
+  const algName = generateTestName("goToJobsAlgorithm");
 
   try {
     const createdAlgorithm = await createAlgorithm(algName);

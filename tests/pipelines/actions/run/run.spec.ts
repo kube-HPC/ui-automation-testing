@@ -10,10 +10,10 @@ import {
 } from "../../../../helpers/sideBarLeft";
 import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
 import { gotoRoot } from "../../../../helpers/global";
-import { buildUniqueTestName } from "../../../../helpers/testDataFactory";
+import { generateTestName } from "../../../../helpers/testDataFactory";
 
 test("run pipeline and check jobs via link", async ({ page }) => {
-  const resourceName = buildUniqueTestName("runPipeline");
+  const resourceName = generateTestName("runPipeline");
   const algorithmName = `${resourceName}Algorithm`;
   const pipelineName = `${resourceName}Pipeline`;
 
