@@ -26,6 +26,7 @@ This command will:
 
 - install all Node dependencies
 - download the required Playwright browsers
+- install a local pre-commit hook (best effort; setup continues if hook installation is not possible)
 
 ## Run the Tests
 
@@ -52,6 +53,8 @@ This quality gate enforces:
 - no empty files under `tests/`
 - camelCase names for folders under `tests/`
 - camelCase names for files under `tests/` (based on file name before extension)
+- unique test titles across `tests/**/*.spec.ts`
+- static test titles only (no dynamic/interpolated test title expressions)
 
 There is no allowlist and no baseline exceptions.
 Any violation fails the check.
