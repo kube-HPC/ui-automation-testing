@@ -26,6 +26,7 @@ This command will:
 
 - install all Node dependencies
 - download the required Playwright browsers
+- install a local pre-commit hook (best effort; setup continues if hook installation is not possible)
 
 ## Run the Tests
 
@@ -39,13 +40,34 @@ or
 npx playwright test
 ```
 
+## UI Automation Contribution Policy
+
+Before opening a PR with new or changed tests, run:
+
+```bash
+npm run check:test-structure
+```
+
+This quality gate enforces:
+
+- no empty files under `tests/`
+- camelCase names for folders under `tests/`
+- camelCase names for files under `tests/` (based on file name before extension)
+- unique test titles across `tests/**/*.spec.ts`
+- static test titles only (no dynamic/interpolated test title expressions)
+
+There is no allowlist and no baseline exceptions.
+Any violation fails the check.
+
+Then run the relevant Playwright tests for your change.
+
 ## One-Time Login Flow (Keycloak)
 
 When `VITE_KEYCLOAK_ENABLE=true`, Playwright runs a dedicated setup project first:
 
 - `tests/auth.setup.ts` logs in once and saves the authenticated browser state to `playwright/.auth/user.json`
 - all tests in the `chrome` project reuse that state via `storageState`
-- `tests/Flows/LoginAndLogout/LoginAndLogout.spec.ts` runs separately in `auth-flow` to validate login/logout itself
+- `tests/flows/loginAndLogout/loginAndLogout.spec.ts` runs separately in `auth-flow` to validate login/logout itself
 
 Required environment variables for this flow:
 

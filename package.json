@@ -4,11 +4,16 @@
   "description": "automation testing Playwright for ui tests",
   "main": "index.js",
   "scripts": {
-    "setup": "npm install && npx playwright install",
+    "setup": "npm install && npx playwright install && npm run hooks:install || true",
     "test": "npx playwright test",
     "report": "npx playwright show-report",
-    "codegen": "npx playwright codegen --viewport-size=1920,1080 http://localhost:9050/",
-    "codegencicd": "npx playwright codegen --viewport-size=1920,1080 https://cicd.hkube.org/hkube/dashboard/"
+    "codegen": "node scripts/codegen.mjs",
+    "check:empty-files": "node scripts/check-empty-spec-files.mjs",
+    "check:empty-specs": "npm run check:empty-files",
+    "check:test-naming": "node scripts/check-test-folder-naming.mjs",
+    "check:test-titles": "node scripts/check-test-title-policy.mjs",
+    "check:test-structure": "npm run check:empty-files && npm run check:test-naming && npm run check:test-titles",
+    "hooks:install": "node scripts/install-pre-commit-hook.mjs"
   },
   "repository": {
     "type": "git",

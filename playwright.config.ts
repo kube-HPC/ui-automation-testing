@@ -65,7 +65,7 @@ export default defineConfig({
         {
           name: "chrome",
           dependencies: ["setup"],
-          testIgnore: ["**/*.setup.ts", "**/LoginAndLogout.spec.ts"],
+          testIgnore: ["**/*.setup.ts", "**/loginAndLogout.spec.ts"],
           use: {
             ...chromeDesktopConfig,
             storageState: authStatePath,
@@ -73,7 +73,7 @@ export default defineConfig({
         },
         {
           name: "auth-flow",
-          testMatch: "**/LoginAndLogout.spec.ts",
+          testMatch: "**/loginAndLogout.spec.ts",
           use: chromeDesktopConfig,
         },
       ]
