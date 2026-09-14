@@ -1,4 +1,4 @@
-const PREFIX = process.env.PREFIX;
+import { PREFIX } from "../../../config/env";
 
 /**
  * Generates a unique version identifier for an algorithm.

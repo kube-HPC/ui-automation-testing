@@ -1,5 +1,6 @@
 import { Page } from "@playwright/test";
 import { getSideBarLeftLink, SideBarLeftLinkName } from "./sideBarLeft";
+import { BASE_URL_ROOT, PREFIX } from "../config/env";
 
 /**
  * Go to the root page of the HKube application.
@@ -10,7 +11,7 @@ import { getSideBarLeftLink, SideBarLeftLinkName } from "./sideBarLeft";
  * @param page - The Playwright page instance.
  */
 export async function gotoRoot(page: Page) {
-  await page.goto(process.env.BASE_URL || "http://localhost:9050/");
+  await page.goto(BASE_URL_ROOT);
 }
 
 /**
@@ -41,5 +42,5 @@ export async function gotoRootSection(
  * @returns The prefixed name.
  */
 export function getNamePrefix(name: string): string {
-  return `${process.env.PREFIX}${name}`;
+  return `${PREFIX}${name}`;
 }
