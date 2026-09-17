@@ -1,15 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
-import dotenv from "dotenv";
 import path from "path";
+import { BASE_URL_ROOT, isKeycloakEnabled } from "./config/env";
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-dotenv.config({ path: path.resolve(__dirname, ".env") });
-
-const isKeycloakEnabled =
-  (process.env.VITE_KEYCLOAK_ENABLE || "").toLowerCase() === "true";
+const keycloakEnabled = isKeycloakEnabled();
 const authStatePath = path.resolve(__dirname, "playwright/.auth/user.json");
 
 const chromeDesktopConfig = {
@@ -42,7 +35,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-    baseURL: process.env.BASE_URL || "http://localhost:9050",
+    baseURL: BASE_URL_ROOT,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
@@ -55,7 +48,7 @@ export default defineConfig({
   },
 
   /* Configure projects for major browsers */
-  projects: isKeycloakEnabled
+  projects: keycloakEnabled
     ? [
         {
           name: "setup",

@@ -1,4 +1,4 @@
-const PREFIX = process.env.PREFIX;
+import { PREFIX } from "../../../config/env";
 
 /**
  * Creates a pipeline payload object for API requests.

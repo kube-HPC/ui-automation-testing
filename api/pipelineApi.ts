@@ -2,9 +2,9 @@ import axios from "axios";
 import { getApiAuthHeaders } from "./authHeaders";
 import { createAlgorithm } from "./algorithmApi";
 import { pipelinePayload } from "./mocks/Pipelines/pipelinePayload";
+import { BACKEND_URL_ROOT, PREFIX } from "../config/env";
 
-const API_URL = `${process.env.BACKEND_URL}store/pipelines`;
-const PREFIX = process.env.PREFIX;
+const API_URL = `${BACKEND_URL_ROOT}store/pipelines`;
 
 /**
  * Deletes a pipeline from the HKube backend.
