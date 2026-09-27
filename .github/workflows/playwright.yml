@@ -8,6 +8,11 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ secrets.CICD_LZ_URL }}
+      KEYCLOAK_USERNAME: ${{ secrets.KEYCLOAK_DEV_USER }}
+      KEYCLOAK_PASSWORD: ${{ secrets.KEYCLOAK_DEV_PASS }}
+      VITE_KEYCLOAK_ENABLE: "true"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

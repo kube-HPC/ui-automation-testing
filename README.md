@@ -28,6 +28,35 @@ This command will:
 - download the required Playwright browsers
 - install a local pre-commit hook (best effort; setup continues if hook installation is not possible)
 
+## Environment Configuration
+
+Environment values are split between a local, git-ignored `.env` file and the
+shared config module in `config/env.js`.
+
+Create your local `.env` from the template:
+
+```bash
+cp .env.example .env
+```
+
+The `.env` file holds machine-specific and secret values:
+
+- `BASE_URL` — the deployment root, for example `https://cicd.hkube.org/`
+- `KEYCLOAK_USERNAME`
+- `KEYCLOAK_PASSWORD`
+- `VITE_KEYCLOAK_ENABLE` — optional override (Keycloak auth is enabled by default)
+- `PREFIX` — optional override for the test-resource prefix (defaults to `pw-`)
+
+`config/env.js` is the single source of truth that derives the URLs used by the
+tests from `BASE_URL`:
+
+- dashboard: `${BASE_URL}hkube/dashboard/#/`
+- backend: `${BASE_URL}hkube/api-server/api/v1/`
+
+In CI, `BASE_URL`, `KEYCLOAK_USERNAME`, and `KEYCLOAK_PASSWORD` are provided via
+GitHub repository **Secrets** (see `.github/workflows/playwright.yml`). Add them
+under Settings → Secrets and variables → Actions.
+
 ## Run the Tests
 
 ```bash
@@ -71,10 +100,12 @@ When `VITE_KEYCLOAK_ENABLE=true`, Playwright runs a dedicated setup project firs
 
 Required environment variables for this flow:
 
-- `VITE_KEYCLOAK_ENABLE=true`
 - `KEYCLOAK_USERNAME`
 - `KEYCLOAK_PASSWORD`
 - `BASE_URL`
+
+Keycloak auth is enabled by default; set `VITE_KEYCLOAK_ENABLE=false` in your
+local `.env` to run against a non-auth deployment.
 
 ## Update Dependencies
 

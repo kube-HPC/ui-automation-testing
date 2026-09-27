@@ -1,4 +1,9 @@
 import axios from "axios";
+import {
+  BACKEND_URL_ROOT,
+  getKeycloakCredentials,
+  isKeycloakEnabled,
+} from "../config/env";
 
 type ApiLoginResponse = {
   access_token: string;
@@ -13,35 +18,8 @@ let cachedToken: string | null = null;
 let tokenExpiresAt = 0;
 let pendingTokenRequest: Promise<string> | null = null;
 
-function isKeycloakEnabled() {
-  return (process.env.VITE_KEYCLOAK_ENABLE || "").toLowerCase() === "true";
-}
-
-function normalizeBaseUrl(url: string) {
-  return url.endsWith("/") ? url : `${url}/`;
-}
-
 function getApiLoginUrl() {
-  const backendUrl = process.env.BACKEND_URL;
-
-  if (!backendUrl) {
-    throw new Error("Missing BACKEND_URL while Keycloak mode is enabled.");
-  }
-
-  return `${normalizeBaseUrl(backendUrl)}auth/login`;
-}
-
-function getApiCredentials() {
-  const username = process.env.KEYCLOAK_USERNAME;
-  const password = process.env.KEYCLOAK_PASSWORD;
-
-  if (!username || !password) {
-    throw new Error(
-      "Missing KEYCLOAK_USERNAME/KEYCLOAK_PASSWORD while Keycloak mode is enabled.",
-    );
-  }
-
-  return { username, password };
+  return `${BACKEND_URL_ROOT}auth/login`;
 }
 
 function extractLoginPayload(payload: ApiLoginResponse | ApiLoginEnvelope) {
@@ -69,7 +47,7 @@ async function fetchApiAccessToken() {
 
   pendingTokenRequest = (async () => {
     const loginUrl = getApiLoginUrl();
-    const { username, password } = getApiCredentials();
+    const { username, password } = getKeycloakCredentials();
     const response = await axios.post<ApiLoginResponse | ApiLoginEnvelope>(
       loginUrl,
       {

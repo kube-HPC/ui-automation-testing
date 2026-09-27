@@ -1,9 +1,9 @@
 import axios from "axios";
 import { getApiAuthHeaders } from "./authHeaders";
 import { algorithmPayload } from "./mocks/Algorithms/algorithmPayload";
+import { BACKEND_URL_ROOT, PREFIX } from "../config/env";
 
-const API_URL = `${process.env.BACKEND_URL}store/algorithms`;
-const PREFIX = process.env.PREFIX;
+const API_URL = `${BACKEND_URL_ROOT}store/algorithms`;
 
 /**
  * Deletes an algorithm from the HKube backend.
