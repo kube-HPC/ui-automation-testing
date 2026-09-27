@@ -8,6 +8,10 @@ const authStatePath = path.resolve(__dirname, "playwright/.auth/user.json");
 const chromeDesktopConfig = {
   ...devices["Desktop Chrome"],
   channel: "chrome",
+  viewport: {
+    width: 1920,
+    height: 1080,
+  },
 };
 
 /**

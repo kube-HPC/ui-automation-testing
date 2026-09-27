@@ -11,7 +11,7 @@ import { BASE_URL_ROOT, PREFIX } from "../config/env";
  * @param page - The Playwright page instance.
  */
 export async function gotoRoot(page: Page) {
-  await page.goto(BASE_URL_ROOT);
+  await page.goto(BASE_URL_ROOT, { waitUntil: "domcontentloaded" });
 }
 
 /**

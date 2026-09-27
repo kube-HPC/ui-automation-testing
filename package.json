@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "setup": "npm install && npx playwright install && npm run hooks:install || true",
-    "test": "npx playwright test --project=chromium -- --width=1920 --height=1080",
+    "test": "npx playwright test --project=chrome --workers=1",
     "report": "npx playwright show-report",
     "codegen": "node scripts/codegen.mjs",
     "check:empty-files": "node scripts/check-empty-spec-files.mjs",
