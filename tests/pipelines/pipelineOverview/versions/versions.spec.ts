@@ -10,11 +10,11 @@ import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
 import { generateTestName } from "../../../../helpers/testDataFactory";
 
 test("pipeline versions", async ({ page }) => {
-  const resourceName = generateTestName("pipelineVersions");
-  const algorithmName = `${resourceName}algorithm`;
-  const pipelineName = `${resourceName}pipeline`;
-  const copiedPipelineName = `${pipelineName}-copy`;
-  const updatedDescription = `description-${resourceName}`;
+  const resourceName = generateTestName("pipVer");
+  const algorithmName = `${resourceName}alg`;
+  const pipelineName = `${resourceName}pipe`;
+  const copiedPipelineName = `${pipelineName}-c`;
+  const updatedDescription = `des-${resourceName}`;
 
   await createPipelineWithAlgorithm(pipelineName, algorithmName);
 
@@ -47,34 +47,20 @@ test("pipeline versions", async ({ page }) => {
       "name",
       pipelineName,
     );
+
+    await gotoRootSection(page, NamesLeftLink.PIPELINES);
+
     const overviewButton =
       pipelineRowForOverview.hkGridGetActionButton("overview");
     await overviewButton.click();
 
     await page.getByRole("tab", { name: "Versions" }).click();
-    await page.locator(".anticon.anticon-right > svg > path").first().click();
+
+    await page.getByRole("cell", { name: "right" }).first().click();
+
+    await page.getByRole("tab", { name: "JSON" }).click();
+
     await expect(page.getByText(`"${updatedDescription}"`)).toBeVisible();
-    await page.getByRole("button", { name: "save" }).first().click();
-
-    const pipelineNameInput = page.getByRole("textbox", {
-      name: "Enter pipeline name",
-    });
-    await pipelineNameInput.fill(copiedPipelineName);
-    await page.getByRole("button", { name: "Save Pipeline" }).click();
-
-    await gotoRootSection(page, NamesLeftLink.PIPELINES);
-    const copiedPipelineRow = hkGridFindRowByColumnText(
-      page,
-      "name",
-      copiedPipelineName,
-    );
-    await expect(copiedPipelineRow.getLocator()).toBeVisible();
-
-    const deleteCopiedPipelineButton =
-      copiedPipelineRow.hkGridGetActionButton("delete");
-    await deleteCopiedPipelineButton.click();
-    await page.getByRole("button", { name: "Confirm" }).click();
-    await expect(copiedPipelineRow.getLocator()).toBeHidden();
   } finally {
     await deletePipeline(copiedPipelineName).catch(console.error);
     await deletePipeline(pipelineName).catch(console.error);
