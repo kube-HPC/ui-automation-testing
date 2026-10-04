@@ -58,7 +58,7 @@ test("pipeline versions", async ({ page }) => {
 
     await page.getByRole("cell", { name: "right" }).first().click();
 
-    await page.getByRole("tab", { name: "JSON" }).click();
+    await page.getByTestId("on-switch-tab-json").click();
 
     await expect(page.getByText(`"${updatedDescription}"`)).toBeVisible();
   } finally {
