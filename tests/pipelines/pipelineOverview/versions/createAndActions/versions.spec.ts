@@ -1,13 +1,13 @@
 import { expect, test } from "@playwright/test";
-import { deleteAlgorithm } from "../../../../api/algorithmApi";
+import { deleteAlgorithm } from "../../../../../api/algorithmApi";
 import {
   createPipelineWithAlgorithm,
   deletePipeline,
-} from "../../../../api/pipelineApi";
-import { gotoRootSection } from "../../../../helpers/global";
-import { NamesLeftLink } from "../../../../helpers/sideBarLeft";
-import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
-import { generateTestName } from "../../../../helpers/testDataFactory";
+} from "../../../../../api/pipelineApi";
+import { gotoRootSection } from "../../../../../helpers/global";
+import { NamesLeftLink } from "../../../../../helpers/sideBarLeft";
+import { hkGridFindRowByColumnText } from "../../../../../helpers/tableHkGrid";
+import { generateTestName } from "../../../../../helpers/testDataFactory";
 
 test("pipeline versions", async ({ page }) => {
   const resourceName = generateTestName("pipVer");
