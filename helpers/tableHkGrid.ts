@@ -1,4 +1,9 @@
 import { Locator, Page } from "@playwright/test";
+import { PREFIX } from "../config/env";
+
+function escapeRegExp(text: string): string {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
 export class HkGridRow {
   constructor(private readonly row: Locator) {}
@@ -38,11 +43,13 @@ export function hkGridFindRowByColumnText(
   columnId: string,
   text: string,
 ): HkGridRow {
+  const exactText = new RegExp(`^${escapeRegExp(PREFIX + text)}$`);
+
   const row = page
     .getByTestId("hk-grid")
     .locator('[role="row"]')
     .filter({
-      has: page.locator(`[col-id="${columnId}"]`, { hasText: text }),
+      has: page.locator(`[col-id="${columnId}"]`, { hasText: exactText }),
     })
     .first();
 

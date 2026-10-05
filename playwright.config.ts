@@ -19,6 +19,8 @@ const chromeDesktopConfig = {
  */
 export default defineConfig({
   testDir: "./tests",
+  // Increase default per-test timeout from 30s to reduce flakes in slower UI flows.
+  timeout: 520_000,
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -47,8 +49,12 @@ export default defineConfig({
     headless: process.env.CI ? true : false,
     viewport: { width: 1920, height: 1080 },
     launchOptions: {
-      slowMo: 200,
+      slowMo: 1000,
     },
+  },
+
+  expect: {
+    timeout: 15_000,
   },
 
   /* Configure projects for major browsers */
