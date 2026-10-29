@@ -46,9 +46,10 @@ function getAxiosErrorDetails(error: unknown) {
  * the function deletes the existing algorithm and retries the creation once.
  *
  * @param name - The base name of the algorithm to create.
+ * @param algorithmImage - Optional image override, e.g. a long-running image.
  * @returns The created algorithm response data.
  */
-export async function createAlgorithm(name: string) {
+export async function createAlgorithm(name: string, algorithmImage?: string) {
   // cleanup any existing algorithm with the same name to avoid conflicts
   await deleteAlgorithm(name).catch((e) => {
     if (e?.response?.status !== 404) {
@@ -56,7 +57,7 @@ export async function createAlgorithm(name: string) {
     }
   });
 
-  const payload = algorithmPayload(name);
+  const payload = algorithmPayload(name, algorithmImage);
   const headers = await getApiAuthHeaders();
 
   try {

@@ -1,5 +1,10 @@
 import { PREFIX } from "../../../config/env";
 
+export const DEFAULT_ALGORITHM_IMAGE = "hkube/algorithm-example-python";
+// Built from the cluster's "stayup" algorithm; keeps the job active so pause/stop can be exercised.
+export const LONG_RUNNING_ALGORITHM_IMAGE =
+  "docker.io/hkubedevtest/stayup:v40ur9i25";
+
 /**
  * Generates a unique version identifier for an algorithm.
  *
@@ -26,15 +31,19 @@ function generateVersion() {
  * and audit trail data.
  *
  * @param name - The base name of the algorithm.
+ * @param algorithmImage - Docker image to run; use a long-running image for pause/stop scenarios.
  * @returns An algorithm payload object ready to be sent to the API.
  */
-export function algorithmPayload(name: string) {
+export function algorithmPayload(
+  name: string,
+  algorithmImage = DEFAULT_ALGORITHM_IMAGE,
+) {
   const timestamp = Date.now();
   const version = generateVersion();
 
   return {
     name: `${PREFIX}${name}`,
-    algorithmImage: "hkube/algorithm-example-python",
+    algorithmImage,
     cpu: 0.1,
     mem: "256Mi",
     options: {
