@@ -49,9 +49,16 @@ export function algorithmPayload(
         ? LONG_RUNNING_ALGORITHM_IMAGE
         : DEFAULT_ALGORITHM_IMAGE;
 
+  // Without env/entryPoint the stayup image fails within seconds instead of staying up.
+  const stayUpCode =
+    algorithmImage === LONG_RUNNING_ALGORITHM_IMAGE
+      ? { env: "python", entryPoint: "stayup.py" }
+      : {};
+
   return {
     name: `${PREFIX}${name}`,
     algorithmImage,
+    ...stayUpCode,
     cpu: 0.1,
     mem: "256Mi",
     options: {

@@ -14,9 +14,14 @@ import { PREFIX } from "../../../config/env";
  *
  * @param name - The base name of the pipeline.
  * @param algorithmName - The name of the algorithm used by the pipeline node.
+ * @param concurrentPipelinesAmount - Optional max concurrent runs; extra runs wait in the queue.
  * @returns A pipeline payload object ready to be sent to the API.
  */
-export function pipelinePayload(name: string, algorithmName: string) {
+export function pipelinePayload(
+  name: string,
+  algorithmName: string,
+  concurrentPipelinesAmount?: number,
+) {
   return {
     name: `${PREFIX}${name}`,
     kind: "batch",
@@ -40,7 +45,9 @@ export function pipelinePayload(name: string, algorithmName: string) {
     },
     options: {
       batchTolerance: 80,
-      concurrentPipelines: { amount: 10, rejectOnFailure: true },
+      concurrentPipelines: concurrentPipelinesAmount
+        ? { amount: concurrentPipelinesAmount, rejectOnFailure: false }
+        : { amount: 10, rejectOnFailure: true },
       ttl: 3600,
       progressVerbosityLevel: "info",
     },
