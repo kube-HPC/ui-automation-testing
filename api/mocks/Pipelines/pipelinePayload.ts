@@ -20,6 +20,9 @@ export function pipelinePayload(name: string, algorithmName: string) {
   return {
     name: `${PREFIX}${name}`,
     kind: "batch",
+    flowInput: {
+      inp: [2],
+    },
     nodes: [
       {
         nodeName: name,
