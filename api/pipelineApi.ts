@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getApiAuthHeaders } from "./authHeaders";
 import { createAlgorithm } from "./algorithmApi";
+import type { AlgorithmImageOptions } from "./mocks/Algorithms/algorithmPayload";
 import { pipelinePayload } from "./mocks/Pipelines/pipelinePayload";
 import { BACKEND_URL_ROOT, PREFIX } from "../config/env";
 
@@ -58,14 +59,14 @@ export async function createPipeline(
  *
  * @param pipelineName - The base name of the pipeline to create.
  * @param algorithmName - The base name of the algorithm to create and attach to the pipeline.
- * @param algorithmImage - Optional image override for the algorithm, e.g. a long-running image.
+ * @param imageOptions - Optional image override or long-running image selection.
  * @returns The created pipeline response data.
  */
 export async function createPipelineWithAlgorithm(
   pipelineName: string,
   algorithmName: string,
-  algorithmImage?: string,
+  imageOptions?: AlgorithmImageOptions,
 ) {
-  await createAlgorithm(algorithmName, algorithmImage);
+  await createAlgorithm(algorithmName, imageOptions);
   return createPipeline(pipelineName, algorithmName);
 }
