@@ -1,6 +1,9 @@
 import axios from "axios";
 import { getApiAuthHeaders } from "./authHeaders";
-import { algorithmPayload } from "./mocks/Algorithms/algorithmPayload";
+import {
+  algorithmPayload,
+  type AlgorithmImageOptions,
+} from "./mocks/Algorithms/algorithmPayload";
 import { BACKEND_URL_ROOT, PREFIX } from "../config/env";
 
 const API_URL = `${BACKEND_URL_ROOT}store/algorithms`;
@@ -46,10 +49,13 @@ function getAxiosErrorDetails(error: unknown) {
  * the function deletes the existing algorithm and retries the creation once.
  *
  * @param name - The base name of the algorithm to create.
- * @param algorithmImage - Optional image override, e.g. a long-running image.
+ * @param imageOptions - Optional image override or long-running image selection.
  * @returns The created algorithm response data.
  */
-export async function createAlgorithm(name: string, algorithmImage?: string) {
+export async function createAlgorithm(
+  name: string,
+  imageOptions?: AlgorithmImageOptions,
+) {
   // cleanup any existing algorithm with the same name to avoid conflicts
   await deleteAlgorithm(name).catch((e) => {
     if (e?.response?.status !== 404) {
@@ -57,7 +63,7 @@ export async function createAlgorithm(name: string, algorithmImage?: string) {
     }
   });
 
-  const payload = algorithmPayload(name, algorithmImage);
+  const payload = algorithmPayload(name, imageOptions);
   const headers = await getApiAuthHeaders();
 
   try {

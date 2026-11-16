@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getApiAuthHeaders } from "./authHeaders";
 import { createAlgorithm } from "./algorithmApi";
+import type { AlgorithmImageOptions } from "./mocks/Algorithms/algorithmPayload";
 import { pipelinePayload } from "./mocks/Pipelines/pipelinePayload";
 import { BACKEND_URL_ROOT, PREFIX } from "../config/env";
 
@@ -31,11 +32,13 @@ export async function deletePipeline(name: string) {
  *
  * @param pipelineName - The base name of the pipeline to create.
  * @param algorithmName - The base name of the algorithm used by the pipeline.
+ * @param concurrentPipelinesAmount - Optional max concurrent runs; extra runs wait in the queue.
  * @returns The created pipeline response data.
  */
 export async function createPipeline(
   pipelineName: string,
   algorithmName: string,
+  concurrentPipelinesAmount?: number,
 ) {
   // cleanup any existing pipeline with the same name to avoid conflicts
   await deletePipeline(pipelineName).catch((e) => {
@@ -44,7 +47,11 @@ export async function createPipeline(
 
   // algorithmName is already prefixed by createAlgorithm
   const prefixedAlgorithmName = `${PREFIX}${algorithmName}`;
-  const payload = pipelinePayload(pipelineName, prefixedAlgorithmName);
+  const payload = pipelinePayload(
+    pipelineName,
+    prefixedAlgorithmName,
+    concurrentPipelinesAmount,
+  );
   const headers = await getApiAuthHeaders();
   const response = await axios.post(API_URL, payload, { headers });
   return response.data;
@@ -58,14 +65,16 @@ export async function createPipeline(
  *
  * @param pipelineName - The base name of the pipeline to create.
  * @param algorithmName - The base name of the algorithm to create and attach to the pipeline.
- * @param algorithmImage - Optional image override for the algorithm, e.g. a long-running image.
+ * @param imageOptions - Optional image override or long-running image selection.
+ * @param concurrentPipelinesAmount - Optional max concurrent runs; extra runs wait in the queue.
  * @returns The created pipeline response data.
  */
 export async function createPipelineWithAlgorithm(
   pipelineName: string,
   algorithmName: string,
-  algorithmImage?: string,
+  imageOptions?: AlgorithmImageOptions,
+  concurrentPipelinesAmount?: number,
 ) {
-  await createAlgorithm(algorithmName, algorithmImage);
-  return createPipeline(pipelineName, algorithmName);
+  await createAlgorithm(algorithmName, imageOptions);
+  return createPipeline(pipelineName, algorithmName, concurrentPipelinesAmount);
 }
