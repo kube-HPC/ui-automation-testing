@@ -61,9 +61,9 @@ test("build algorithm from code", async ({ page }) => {
       buildsTable.getByText(`buildId: "${algorithmFullName}-`).first(),
     ).toBeVisible();
 
-    await page.getByRole("button", { name: "redo" }).click();
-    await expect(page.getByRole("button", { name: "close" })).toBeVisible();
-    await page.getByRole("button", { name: "close" }).click();
+    await page.getByTestId("rerun-build-button").click();
+    await page.waitForTimeout(2000);
+    await page.getByTestId("cancel-build-button").click();
 
     await gotoRootSection(page, NamesLeftLink.ALGORITHMS);
 
