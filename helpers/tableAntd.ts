@@ -46,3 +46,32 @@ export function antTableFindRowByText(page: Page, text: string): AntTableRow {
 
   return new AntTableRow(row);
 }
+
+/**
+ * Returns the text values of all body rows for the given column header.
+ *
+ * @param page - The Playwright page instance.
+ * @param columnName - The exact name of the column header.
+ * @returns An array of trimmed text values from the column.
+ * @throws Error if the column header is not found.
+ */
+export async function antTableGetColumnValues(
+  page: Page,
+  columnName: string,
+): Promise<string[]> {
+  const table = page.getByTestId("tableAntd");
+
+  const headers = await table.locator("thead th").allInnerTexts();
+  const columnIndex = headers.findIndex((h) => h.trim() === columnName);
+  if (columnIndex === -1) {
+    throw new Error(
+      `Column "${columnName}" not found. Headers: ${headers.join(", ")}`,
+    );
+  }
+
+  const cells = table
+    .locator("tbody tr.ant-table-row")
+    .locator(`td:nth-child(${columnIndex + 1})`);
+
+  return (await cells.allInnerTexts()).map((t) => t.trim());
+}
