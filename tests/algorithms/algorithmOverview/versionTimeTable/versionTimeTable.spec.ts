@@ -6,7 +6,7 @@ import { hkGridFindRowByColumnText } from "../../../../helpers/tableHkGrid";
 import { generateTestName } from "../../../../helpers/testDataFactory";
 
 test("algorithm overview version time table tab", async ({ page }) => {
-  const algorithmName = generateTestName("versionTimeTableAlgorithm");
+  const algorithmName = generateTestName("ver-time-table");
 
   await createAlgorithm(algorithmName);
 
